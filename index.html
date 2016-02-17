@@ -1,24 +1,127 @@
 ---
 layout: default
 ---
-It worked!
 
-<div id="clocks"></div>
+{% raw %}
 
-<script type="text/x-handlebars-template" id="clock">
-  <div class="clock">
-
+  <div class="wrapper">
+    <header>
+      <h1>IT'S TEE TIME</h1>
+      <h2>Get your quality NI T-Shirts Here</h2>
+    </header>
+    <div id="clocks"></div>
+    <footer>
+      <p><a href="http://playingstyle.com/our-wee-tees">OUR WEE TEES</a></p>
+    </footer>
   </div>
-</script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-<script type="text/javascript">
+  <script type="text/x-handlebars-template" id="clock">
+    <a href="#" class="clock">
+      <div class="section top">
+        <div class="title">{{ label }}</div>
+        <div class="counter">
+          <div class="unit days">
+            <div class="count">000</div>
+            <div class="label">DAYS</div>
+          </div>
+          <div class="unit hours">
+            <div class="count">00</div>
+            <div class="label">HOURS</div>
+          </div>
+          <div class="unit mins">
+            <div class="count">00</div>
+            <div class="label">MINS</div>
+          </div>
+          <div class="unit secs">
+            <div class="count">00</div>
+            <div class="label">SECS</div>
+          </div>
+        </div>
+      </div>
+      <div class="section bottom">
+        <div class="date">{{ time }}</div>
+      </div>
+    </a>
+  </script>
 
-  var data = [{},{},{}];
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <script type="text/javascript">
 
-  $(function(){
+    var data = [{
+      label: "Alison's Birthday",
+      time: new Date("2016-12-18 03:00")
+    },{
+      label: "Nick's Birthday",
+      time: new Date("2016-09-15 13:25")
+    },{
+      label: "Daniel's Birthday",
+      time: new Date("2016-07-09 02:00")
+    },{
+      label: "Alex's Birthday",
+      time: new Date("2016-10-18 10:15")
+    }];
 
-  });
 
-</script>
+    function pad(n){
+      return n<10 ? '0'+n : n;
+    }
+
+    function tick($clocks){
+
+      var now = new Date(),
+          now = Math.round(now.getTime()/1000),
+          i = 0;
+
+      $(data).each(function(){
+        var $el = $clocks.find('.clock').eq(i++);
+            soon = Math.round(this.time.getTime()/1000),
+            seconds = soon-now,
+            days = Math.floor(seconds/24/60/60),
+            hoursLeft = Math.floor((seconds) - (days*86400)),
+            hours = Math.floor(hoursLeft/3600),
+            minutesLeft = Math.floor((hoursLeft) - (hours*3600)),
+            minutes = Math.floor(minutesLeft/60),
+            remainingSeconds = seconds % 60;
+
+          // console.log(now);
+          // console.log(soon);
+          // console.log(seconds);
+          // console.log(days);
+          // console.log(' ');
+
+          $('.days .count', $el).html(days);
+          $('.hours .count', $el).html(pad(hours));
+          $('.mins .count', $el).html(pad(minutes));
+          $('.secs .count', $el).html(pad(remainingSeconds));
+
+      });
+
+    }
+
+    ///////////
+
+    $(function(){
+
+      var t = Handlebars.compile($('#clock').html()),
+          $clocks = $('#clocks');
+
+      $(data).each(function(){
+        $clocks.append(t(this));
+      });
+
+      function sto(){
+        var to = setTimeout(function () {
+          tick($clocks);
+          sto();
+        }, 1000);
+      }
+
+      tick($clocks);
+      sto();
+
+    });
+
+  </script>
+
+{% endraw %}
