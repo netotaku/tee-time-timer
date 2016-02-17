@@ -1,0 +1,7 @@
+# Site settings
+title: Tee Time Timer
+email: nick@clarkson.io
+description: Need a desciption from Zane
+url: "http://clar.ky/tee-time-timer" # the base hostname & protocol for your site
+# Build settings
+markdown: kramdown
