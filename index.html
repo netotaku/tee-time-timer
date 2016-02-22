@@ -15,7 +15,15 @@ layout: default
       <p><a href="http://playingstyle.com/our-wee-tees">
         <img src="./img/OWTad.jpg">
       </a></p>
-      <p><a href="http://playingstyle.com/our-wee-tees">OUR WEE TEES</a></p>
+      <p>
+        Like and share!<br>
+        <span class="addthis_sharing_toolbox"></span>
+      </p>
+      <p>
+        <br>
+        <a href="http://playingstyle.com/our-wee-tees">OUR WEE TEES</a><br>
+        <a href="https://www.facebook.com/ourweetees">Join us on Facebook</a>
+      </p>
     </footer>
   </div>
 
@@ -23,7 +31,7 @@ layout: default
     <a href="#" class="clock {{ theme }}">
       <div class="grad">
         <div class="section top">
-          <div class="title">{{ label }}</div>
+          <div class="title">{{{ label }}}</div>
           <div class="counter">
             <div class="unit days">
               <div class="count">000</div>
@@ -44,7 +52,7 @@ layout: default
           </div>
         </div>
         <div class="section bottom">
-          <div class="date">{{ time }}</div>
+          <div class="date">{{formatDate time}} (GMT)</div>
         </div>
       </div>
     </a>
@@ -52,23 +60,25 @@ layout: default
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4dbf29307cc266c2" async="async"></script>
   <script type="text/javascript">
 
     var data = [{
-      label: "NIR v POL",
-      time: new Date("2016-12-18T03:00"),
+      label: "NIR v POL - <span>Allianz Riviera, NICE</span>",
+      time: new Date("2016-06-12T17:00"),
       theme: 'theme green'
     },{
-      label: "NIR v UKR",
-      time: new Date("2016-09-15T13:25"),
+      label: "NIR v UKR - <span>Stade de LYON</span>",
+      time: new Date("2016-06-16T13:25"),
       theme: 'theme blue'
     },{
-      label: "NIR v GER",
-      time: new Date("2016-07-09T02:00"),
+      label: "NIR v GER - <span>Parc des Prices, PARIS</span>",
+      time: new Date("2016-06-21T02:00"),
       theme: 'theme white'
     },{
-      label: "EURO'16 FINAL",
-      time: new Date("2016-10-18T10:15"),
+      label: "EURO'16 FINAL - <span>Stade de France, ST. DENIS</span>",
+      time: new Date("2016-07-10T20:00"),
       theme: 'theme red'
     }];
 
@@ -113,6 +123,10 @@ layout: default
     ///////////
 
     $(function(){
+
+      Handlebars.registerHelper("formatDate", function(datetime) {
+        return moment.utc(datetime).format("ddd DD MMMM - KO HH.mm");
+      });
 
       var t = Handlebars.compile($('#clock').html()),
           $clocks = $('#clocks');
