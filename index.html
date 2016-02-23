@@ -28,7 +28,7 @@ layout: default
   </div>
 
   <script type="text/x-handlebars-template" id="clock">
-    <a href="#" class="clock {{ theme }}">
+    <div href="#" class="clock {{ theme }}">
       <div class="grad">
         <div class="section top">
           <div class="title">{{{ label }}}</div>
@@ -55,13 +55,13 @@ layout: default
           <div class="date">{{formatDate time}} (GMT)</div>
         </div>
       </div>
-    </a>
+    </div>
   </script>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4dbf29307cc266c2" async="async"></script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56cc3e1e3cfb332d"></script>
   <script type="text/javascript">
 
     var data = [{
@@ -104,12 +104,6 @@ layout: default
             minutesLeft = Math.floor((hoursLeft) - (hours*3600)),
             minutes = Math.floor(minutesLeft/60),
             remainingSeconds = seconds % 60;
-
-          // console.log(now);
-          // console.log(soon);
-          // console.log(seconds);
-          // console.log(days);
-          // console.log(' ');
 
           $('.days .count', $el).html(days);
           $('.hours .count', $el).html(pad(hours));
